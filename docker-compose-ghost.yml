@@ -1,0 +1,31 @@
+version: '3'
+services:
+  ghost:
+    image: ghost:latest
+    container_name: ghost-blog
+    environment:
+      - NODE_ENV=production
+      - MYSQL_DATABASE=ghost_blog
+      - MYSQL_USER=ghost
+      - MYSQL_PASSWORD=ghost12340!
+    volumes:
+      - ghost-volume:/var/lib/ghost
+    ports:
+      - 8023:2368
+    depends_on:
+      - mysql
+    restart: always
+  mysql:
+    image: mysql:latest
+    container_name: ghost-db
+    environment:
+      - MYSQL_DATABASE=ghost_blog
+      - MYSQL_ROOT_PASSWORD=R00to!
+      - MYSQL_PASSWORD=ghost12340!
+    volumes:
+      - mysql-volume:/var/lib/mysql
+    restart: always
+
+volumes:
+  ghost-volume:
+  mysql-volume:
